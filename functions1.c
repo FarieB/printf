@@ -37,7 +37,8 @@ int print_unsigned(va_list types, char buffer[],
 
 /*Print unsigned number in octal (base 8)*/
 /**
- * print_octal - function that prints an unsigned number in octal notation
+ * print_octal - function that prints an unsigned
+ * number in octal notation (base 8)
  * @buffer: A buffer for array for handling the print
  * @flags:  calculates active flags
  * @types: list of arguments
@@ -52,7 +53,7 @@ int print_octal(va_list types, char buffer[],
 
 	int x = BUFF_SIZE - 2;
 	unsigned long int numb = va_arg(types, unsigned long int);
-	unsigned long int init_num = numb;
+	unsigned long int init_numb = numb;
 
 	UNUSED(width);
 
@@ -69,7 +70,7 @@ int print_octal(va_list types, char buffer[],
 		numb /= 8;
 	}
 
-	if (flags & F_HASH && init_num != 0)
+	if (flags & F_HASH && init_numb != 0)
 		buffer[x--] = '0';
 
 	x++;
@@ -79,7 +80,8 @@ int print_octal(va_list types, char buffer[],
 
 /* Print unsigned number in lower hexadecimal-base 10 */
 /**
- * print_hexadecimal - function that prints an unsigned number in hexadecimal
+ * print_hexadecimal - function that prints an unsigned
+ * number in hexadecimal notation- base 10
  * @buffer: A buffer for array for handling the print
  * @flags:  calculates active flags
  * @types: list of arguments
@@ -97,7 +99,8 @@ int print_hexadecimal(va_list types, char buffer[],
 
 /* Print an unsigned number in Upper hexadecimal-base 10 */
 /**
- * print_hexa_upper - prints an unsigned number in upper hexadecimal
+ * print_hexa_upper - function that prints an unsigned
+ * number in upper hexadecimal notation-base 10
  * @buffer: A buffer for array for handling the print
  * @flags:  calculates active flags
  * @types: list of arguments
@@ -117,7 +120,7 @@ int print_hexa_upper(va_list types, char buffer[],
 /**
  * print_hexa - function that prints a hexadecimal number in lower or upper
  * @types: list of arguments
- * @map_to: Array of values to map the number to
+ * @set_to: Array of values to map the number to
  * @buffer: A buffer for array for handling the print
  * @flags:  calculates active flags
  * @flag_ch: Calculates active flags
@@ -127,12 +130,12 @@ int print_hexa_upper(va_list types, char buffer[],
  * @size: Size specification
  * Return: number of characters printe
  */
-int print_hexa(va_list types, char map_to[], char buffer[],
+int print_hexa(va_list types, char set_to[], char buffer[],
 	int flags, char flag_ch, int width, int precision, int size)
 {
 	int x = BUFF_SIZE - 2;
 	unsigned long int numb = va_arg(types, unsigned long int);
-	unsigned long int init_num = numb;
+	unsigned long int init_numb = numb;
 
 	UNUSED(width);
 
@@ -145,11 +148,11 @@ int print_hexa(va_list types, char map_to[], char buffer[],
 
 	while (numb > 0)
 	{
-		buffer[x--] = map_to[numb % 16];
+		buffer[x--] = set_to[numb % 16];
 		numb /= 16;
 	}
 
-	if (flags & F_HASH && init_num != 0)
+	if (flags & F_HASH && init_numb != 0)
 	{
 		buffer[x--] = flag_ch;
 		buffer[x--] = '0';
@@ -159,4 +162,3 @@ int print_hexa(va_list types, char map_to[], char buffer[],
 
 	return (write_unsgnd(0, x, buffer, flags, width, precision, size));
 }
-

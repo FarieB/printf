@@ -78,12 +78,12 @@ int write_number(int is_negative, int ind, char buffer[],
 	else if (flags & F_SPACE)
 		extra_ch = ' ';
 
-	return (write_num(ind, buffer, flags, width, precision,
+	return (write_numb(ind, buffer, flags, width, precision,
 		length, padd, extra_ch));
 }
 
 /**
- * write_num - function that writes a number using a bufffer
+ * write_numb - function that writes a number using a bufffer
  * @ind: the Index where the number starts on the buffer
  * @buffer: A buffer for array for handling the print
  * @flags:  calculates active flags
@@ -95,7 +95,7 @@ int write_number(int is_negative, int ind, char buffer[],
  *
  * Return: Number of printed chars.
  */
-int write_num(int ind, char buffer[],
+int write_numb(int ind, char buffer[],
 	int flags, int width, int prec,
 	int length, char padd, char additional_c)
 {
@@ -124,11 +124,11 @@ int write_num(int ind, char buffer[],
 		}
 		else if (!(flags & F_MINUS) && padd == ' ')
 		{
-			if (extra_c)
+			if (additional_c)
 				buffer[--ind] = additional_c;
 			return (write(1, &buffer[1], x - 1) + write(1, &buffer[ind], length));
 		}
-		else if (!(flags & F_MINUS) && padd == '0')/* extra char to left of padd */
+		else if (!(flags & F_MINUS) && padd == '0')
 		{
 			if (additional_c)
 				buffer[--padd_start] = additional_c;
@@ -255,4 +255,3 @@ int write_pointer(char buffer[], int ind, int length,
 		buffer[--ind] = additional_c;
 	return (write(1, &buffer[ind], BUFF_SIZE - ind - 1));
 }
-
