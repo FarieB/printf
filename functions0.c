@@ -179,7 +179,7 @@ for (x = 0, sum = 0, count = 0; x < 32; x++)
 sum += n[x];
 if (sum || x == 31)
 {
-char z = '0' + a[x];
+char z = '0' + n[x];
 
 write(1, &z, 1);
 count++;
@@ -187,4 +187,3 @@ count++;
 }
 return (count);
 }
-
